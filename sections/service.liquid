@@ -1,0 +1,110 @@
+<div class="ser-appto">
+    <div class="row deliveryinfo text-center">
+  {% if section.settings.s_title %}
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <ul>
+    <li><span>{% include 'icon-support' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_gift }}</h4>
+    <p>{{ section.settings.header_gift1 }}</p>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+  {% if section.settings.sb_title %}
+  <div class="col-xs-12 col-sm-4 col-md-4 sborder">
+    <ul>
+    <li><span>{% include 'icon-moneys' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_support }}</h4>
+    <p>{{ section.settings.header_support1 }}</p>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+   {% if section.settings.sa_title %}
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <ul>
+    <li><span>{% include 'icon-ship' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_pay }}</h4>
+    <p>{{ section.settings.header_pay1 }}</p>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+ 
+</div>
+</div>
+  
+{% schema %}
+{
+  "name": "Service",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "s_title",
+      "label": "Service 1",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_gift",
+    "label": "Heading",
+    "default": "24 X 7 free support"
+    },
+    {
+    "type": "text",
+    "id": "header_gift1",
+    "label": "Sub Heading",
+    "default": "Online Support 24/7"
+    },
+    {
+      "type": "checkbox",
+      "id": "sb_title",
+      "label": "Service 2",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_support",
+    "label": "Heading",
+    "default": "Free World Shipping"
+    },
+    {
+    "type": "text",
+    "id": "header_support1",
+    "label": "Sub Heading",
+    "default": "On Order Over $99"
+    },
+    {
+      "type": "checkbox",
+      "id": "sa_title",
+      "label": "Service 3",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_pay",
+    "label": "Heading",
+    "default": "Money Back Guarantee"
+    },
+    {
+    "type": "text",
+    "id": "header_pay1",
+    "label": "Sub Heading",
+    "default": "100% Secure Payment"
+    }
+  ],
+  "presets": [
+    {
+     "name": "Service",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}

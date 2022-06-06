@@ -1,0 +1,204 @@
+<div class="category-home container">
+  <div class="row">
+    <div class="col-sm-4 col-xs-12 catehome-img  hidden-sm hidden-xs">
+      <div class="beffect">
+        {% if section.settings.link != blank %}<a href="{{ section.settings.link }}">{% endif%}
+        {% if section.settings.image != blank %}
+        <img src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.title }}" class="img-responsive center-block" />
+        {% else %}
+        {% comment %}{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}{% endcomment %}
+        <img src="https://dummyimage.com/450x520/f8e0e0" class="img-responsive center-block" />
+        {% endif%}           
+        {% if section.settings.link != blank %}</a>{% endif%}  
+      </div>
+    </div>
+    <div class="col-md-8 col-xs-12 catehome">
+      {% if section.settings.title != blank %}
+          <h1 class="heading"><span>{{ section.settings.title | escape }}</span></h1>
+      {% endif %}
+
+      <div class="row prodm">
+        <ul class="owl-cat owl-carousel owl-theme">
+          {% assign num_row = 2 %}
+          {% assign temp = 0 %}
+          {% for block in section.blocks limit: section.blocks.size %}
+            {% if temp == 0 %}
+              <ul class="twopro">
+            {% endif %}
+            <li class="product-cate col-xs-12" {{ block.shopify_attributes }}>
+              {%- assign collection = collections[block.settings.collection] -%}
+              {% if collection.image %}
+                {%- assign collection_image = collection.image -%}
+              {% elsif collection.products.first and collection.products.first.images != empty %}
+                {%- assign collection_image = collection.products.first.featured_image -%}
+              {% else %}
+                {% assign collection_image = blank %}
+              {% endif %}
+
+          <div class="collection-grid-item text-center">
+            <a href="{% if collection.products == empty %}#{% else %}{{ collection.url }}{% endif %}" class="collection-grid-item__link">
+              
+              {% unless collection_image == blank %}
+               <img class="" src="{{ collection_image | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}">
+              {% endunless %}
+              <h5><span>{{ collection.title }}</span></h5>
+            </a>
+          </div>
+            </li>
+            {% assign temp = temp | plus: 1 %}
+
+            {% if temp == num_row %}
+                </ul>
+
+                {% assign temp = 0 %}
+            {% endif %}  
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% if section.blocks.size == 0 %}
+        {% include 'no-blocks' %}
+      {% endif %}
+      <div class="owl-catbtn slidebtn">
+          <a class="prev"><i class="fa fa-angle-left" ></i></a><a class="next"><i class="fa fa-angle-right" ></i></a>
+          </div>
+    </div>
+  </div>
+</div>
+
+  
+<script type="text/javascript">
+  $(document).ready(function(){
+    var article_item = $(".owl-cat");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1],
+        [320, 2],
+        [600, 4],
+        [768, 4],
+        [992, 3],
+        [1200, 5],
+        [1410, 5]
+      ],
+      navigation : false,
+      pagination:false
+    });
+
+    // Custom Navigation Events
+    $(".owl-catbtn .next").click(function(){
+      article_item.trigger('owl.next');
+    })
+    $(".owl-catbtn .prev").click(function(){
+      article_item.trigger('owl.prev');
+    }) 
+  });
+</script>
+{% schema %}
+{
+  "name": {
+    "de": "Kategorien-Liste",
+    "en": "Collection list",
+    "es": "Lista de colecciones",
+    "fr": "Liste des collections",
+    "it": "Elenco delle collezioni",
+    "ja": "コレクションリスト",
+    "pt-BR": "Lista de coleções"
+  },
+  "class": "index-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fr": "En-tête",
+        "it": "Heading",
+        "ja": "見出し",
+        "pt-BR": "Título"
+      },
+      "default": {
+        "de": "Kategorien-Liste",
+        "en": "Collection list",
+        "es": "Lista de colecciones",
+        "fr": "Page de liste des collections",
+        "it": "Elenco delle collezioni",
+        "ja": "コレクションリスト",
+        "pt-BR": "Lista de coleções"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Size: 660x300"
+    },
+    {
+    "type": "url",
+    "id": "link",
+    "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": {
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fr": "Collection",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "pt-BR": "Coleção"
+      },
+      "settings": [
+        {
+          "label": {
+            "de": "Kategorie",
+            "en": "Collection",
+            "es": "Colección",
+            "fr": "Collection",
+            "it": "Collezione",
+            "ja": "コレクション",
+            "pt-BR": "Coleção"
+          },
+          "id": "collection",
+          "type": "collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Kategorien-Liste",
+        "en": "Collection list",
+        "es": "Lista de colecciones",
+        "fr": "Page de liste des collections",
+        "it": "Elenco delle collezioni",
+        "ja": "コレクションリスト",
+        "pt-BR": "Lista de coleções"
+      },
+      "category": {
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fr": "Collection",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "pt-BR": "Coleção"
+      },
+      "blocks": [
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

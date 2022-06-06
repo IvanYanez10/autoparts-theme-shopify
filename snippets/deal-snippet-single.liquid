@@ -1,0 +1,13 @@
+  {% assign dealTime = section.settings.deal_end_date | replace: '_',' ' %}  
+  <div class="deal-clock-single lof-clock-timer-detail-single"></div>
+  <script>
+  //<![CDATA[
+  jQuery(document).ready(function($){
+    $(".lof-clock-timer-detail-single").lofCountDown({      
+      TargetDate:"{{ dealTime }}",
+      DisplayFormat:"<ul class='list-inline'><li class='day'><span>%%D%%</span><span>Days</span></li><li class='hours'><span>%%H%%</span><span>Hours</span></li><li class='mins'><span>%%M%%</span><span>Minutes</span></li><li class='seconds'><span>%%S%%</span><span>Seconds</span></li></ul>",
+      FinishMessage: "Expired"
+      });
+  });
+  //]]>
+</script>

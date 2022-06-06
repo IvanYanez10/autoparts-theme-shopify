@@ -1,0 +1,237 @@
+<div data-section-id="{{ section.id }}" class="headertop">    
+  <header class="site-header">
+      <div id="header-landing">
+
+
+{% if section.settings.display_top_bar %}
+<div class="headtop" style="background-color: {{ section.settings.topbar_color }};">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-xs-12 text-left hidden-xs">
+        {% if section.settings.offerhead != blank %}
+         <p>{{ section.settings.offerhead }}</p>
+          {% endif %}
+      </div>
+      <div class="col-sm-6 col-xs-12 text-right">
+        <ul class="list-unstyled list-inline">
+          <li class="slidedown_section dropdown user-drop">
+            <a class="dropdown-toggle hmuser" data-toggle="dropdown">
+              <div class="userdrop">
+                <span class="svgbg hidden-lg hidden-md hidden-sm">{% include 'icon-login' %}</span><span class="hidden-xs">{{ 'customer.account.title' | t }} <i class="fa fa-angle-down"></i></span>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right user-down">
+              <div class="header-panel-top">
+                <div class="customer_account text-left">
+                  <ul class="list-unstyled">
+                    {% if customer %}
+                      <li>
+                        <a href="/account">
+                          <i class="fa fa-user"></i>
+                          {{ 'layout.customer.account' | t }}
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/account/logout">
+                          <i class="fa fa-sign-out"></i>
+                          {{ 'layout.customer.log_out' | t }}
+                        </a>
+                      </li>
+                    {% else %}
+                      <li>
+                        <a href="/account/login">
+                          <i class="fa fa-lock"></i>
+                          {{ 'layout.customer.log_in' | t }}
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/account/register" title="{{ 'layout.customer.create_accounthome' | t }}">
+                          <i class="fa fa-user"></i>
+                          {{ 'layout.customer.create_accounthome' | t }}
+                        </a>
+                      </li>
+                    {% endif %}
+                    
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="appcry">{% include 'bold-common' %}{%- include 'bold-currency-picker-mount', openDirection: 'down' -%}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endif %}
+            <div class="headernav">
+              <div class="container">
+            <div class="header-top row">
+	          	{% include 'top-bar' %}
+              	<div class="col-lg-3 col-md-2 col-sm-3 col-xs-4 hlogo">{% include 'logo' %}</div>
+                <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                  {% if section.settings.display_search %}    
+                    <li class="header-search desktop-search">
+                     <div id="search" class="input-group wbSearch" >
+                      <form action="/search" method="get" class="search-header search" role="search">
+                        <div id="search_block_top">
+                          <input class="search_query search-header__input search__input"
+                          type="search"
+                          name="q"
+                          placeholder="{{ 'general.search.placeholder' | t }}"
+                          aria-label="{{ 'general.search.placeholder' | t }}">
+                          <button type="submit" class="text-link top-header__link top-header__search-submit">
+                          {% comment %}<span class="hidden-xs">{{ 'general.search.submit' | t }}</span>{% endcomment %}
+                          <span>{% include 'icon-search' %}</span>
+                          </button>
+                        </form>
+                      </div>
+                    </li> 
+                  {% endif %}       
+                </div>
+	          	<div class="col-lg-3 col-md-3 col-sm-2 headleft">
+               	<div class="homesearch text-right">
+               
+                <div class="rightac wscur"> 
+                  <ul class="list-unstyled list-inline">          
+                    {% if section.settings.display_wishlist %}<li class="topwish">{% include 'wish-list' %}</li>{% endif %}
+                    <li class="header-bar__module cart header_cart xsheader">
+                      {% if section.settings.display_minicart %}
+                      {% include 'mini-cart' %}
+                      {% endif %} 
+                    </li>
+                  </ul> 
+               </div>
+
+               </div>
+              </div>
+              </div>
+           
+      </div>
+        </div>
+        <div class="head-bottom">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 leftw hidden-sm">
+                <div class="menu-head hidden-sm hidden-xs"></div>
+              </div>
+              <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12 rightw statmenu hidden-xs">
+                {% if section.settings.text != blank %}
+                    {{ section.settings.text }}
+                {% endif %}
+                <div class="pull-right spg">
+                  <a href="{{ section.settings.specialurl }}">{% include 'icon-gift' %} {{ section.settings.special }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+  </header>
+   <style> 
+
+    /* Menu  block */     
+    .headertop .menu-tool ul li {color: {{ section.settings.menubar_text }};} 
+    /* Search block */     
+     .headertop .header-search span,.headertop .search-bar__form button.res_btn  {color:{{section.settings.search_icon}};} 
+     .headertop .header-search span:hover,.headertop .search-bar__form button.res_btn:hover {color:{{section.settings.search_icon_hover }};} 
+     .headertop .header-search input[type="text"] { margin-bottom: 0; border-radius: 4px 0 0 4px; border:1px solid #eee;height: 40px; background:{{section.settings.search_bg }};}
+     .headertop .header-search .btn {min-width: 110px; height: 40px; border-radius: 0 4px 4px 0; color:{{section.settings.Btn_text }};background:{{ section.settings.search_btn_bg }};}
+     .headertop .header-search .btn:hover { color:{{section.settings.search_btn_hover }};background:{{ section.settings.search_btn_bghover }};}
+     .headertop .search-bar__form button.res_btn { background:none;border:none;height:auto; }
+     
+     
+     
+     /* Cart Summary block */
+    .headertop .product-details p{
+      font-size: 12px; margin-bottom: 0;padding: 0
+    }
+    
+     .headertop #slidedown-cart li { border-bottom:1px solid #eee; }
+
+
+     /* Currency block */
+     
+     .headertop .select-selected.select-arrow-active:after { border-color: transparent transparent {{ section.settings.currency_icon }} transparent; }
+     .headertop .select-selected:after {  border-color: {{ section.settings.currency_icon }} transparent transparent transparent;}
+    .headertop .header_currency ul li.currency:after { border-top-color: {{ section.settings.currency_icon }}; }
+    .headertop .tbl-list>li.currency>.dropdown-toggle:hover  {color: {{ section.settings.currency_icon_hover }};}
+   .headertop .select-selected {color: {{ section.settings.currency_link }};}
+    .headertop .select-selected:hover {color:{{section.settings.currency_hover_link }};}  
+      
+       /* Header borders */
+    .headertop .site-nav>li>a:before {background: {{ section.settings.border_between_bars}}; }
+  
+      </style> 
+</div>
+
+{% schema %}
+{
+"name": "Header",
+"settings": [
+  {
+  "type":"checkbox",
+  "id": "display_top_bar",
+  "label": "Display topbar" 
+  },
+  {
+  "type":"checkbox",
+  "id": "display_currency",
+  "label": "Display Currency" 
+  },
+  {
+  "type":"checkbox",
+  "id": "display_search",
+  "label": "Display Search" 
+  },
+
+   {
+  "type": "checkbox",
+  "id": "display_minicart",
+  "label": "Display minicart"
+  },
+
+  {
+  "type": "checkbox",
+  "id": "display_wishlist",
+  "label": "Display wishlist"
+  },
+  {
+  "type": "text",
+  "id": "offerhead",
+  "label": "Offer",
+  "default": "Get free shipping – Free 30 Day Money Back Guarantee"
+  },
+  {
+  "type": "color",
+  "id": "topbar_color",
+  "label": "Topbar Background",
+  "default": "#fff"
+  },
+  {
+    "type": "richtext",
+    "id": "text",
+    "label": "Text",
+    "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+  },
+  {
+    "type": "text",
+    "id": "special",
+    "label": "Special",
+    "default": "Special Gift"
+  },
+  {
+    "type": "url",
+    "id": "specialurl",
+    "label": "Special Url"
+  }
+
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+

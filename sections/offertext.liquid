@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="offer-text">
+    <div class="text-center">
+        <h4>{{ section.settings.offerhead }}</h4>
+        <p>{{ section.settings.offerdesc }}</p>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Offer Text",
+  "class": "index-section",
+  "settings": [
+   {
+    "type": "text",
+    "id": "offerhead",
+    "label": "Heading",
+    "default": "Rewards just for shopping!"
+    },
+    {
+    "type": "text",
+    "id": "offerdesc",
+    "label": "Sub Heading",
+    "default": "Don’t forget to opt into Multistore News to have your offers and rewards delivered right to your inbox!"
+    }
+  ],
+  "presets": [
+    {
+     "name": "Offer Text",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}

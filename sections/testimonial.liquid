@@ -1,0 +1,214 @@
+<div class="foot-sp">
+  <div class="container">
+    <div class="row">
+      <div data-section-id="{{ section.id }}" data-section-type="testimonial" class="testimonial test-ser col-xs-12 col-md-6">
+        {% if section.blocks.size > 0 %}
+          <div class="quotes-wrapper">
+            <div class="testi owl-carousel owl-theme">
+              {% for block in section.blocks %}
+                <div class="quotes-slide--{{ block.id }}" {{ block.shopify_attributes }}>
+                  <div class="quotes-slider__text testibgc row">
+                    <div class="test-img col-xs-2">
+                      <img class="img-responsive center-block" src="{{ block.settings.image | img_url: '100x100' }}" alt="{{ block.settings.image.alt | escape }}">
+                    </div>
+                      <div class="des_testimonial d-test col-xs-10">
+                        {% if block.settings.author != blank %}
+                          <h4>{{ block.settings.author | escape }}</h4>
+                        {% endif %}&nbsp;
+                        <h5>{{ block.settings.developer | escape }}</h5>
+                        <hr>
+                         {% if block.settings.quote != blank %}
+                          <p>{{ block.settings.quote }}</p>
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        {% endif %}
+
+        {% if section.blocks.size == 0 %}
+          {% include 'no-blocks' %}
+        {% endif %}
+      </div>
+      <div class="newsc text-center col-xs-12 col-md-6">
+        <div class="newsltr">
+            <div class="newsldesign">
+                 {% if section.settings.show_newsletter %}
+                     <div class="{% if section.settings.heading != blank or section.settings.subheading != blank %} newsl {% endif %}">
+                        {% unless section.settings.heading == blank %}
+                          <h4>{{ section.settings.heading | escape }}</h4>
+                        {% endunless %}
+                      </div>
+                    <div class="form-vertical">
+                      {% form 'customer' %}
+                        {{ form.errors | default_errors }}
+                        {% if form.posted_successfully? %}
+                          <p class="form-success text-center">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                        {% else %}
+                          <input type="hidden" name="contact[tags]" value="newsletter">
+                          {% comment %}<label for="NewsletterEmail-{{ block.id }}" class="label--hidden">{{ 'general.newsletter_form.newsletter_label' | t }}</label>{% endcomment %}
+                          <div class="newsb input-group">
+                            <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="NewsletterEmail-{{ block.id }}" class="input-group__field" autocorrect="off" autocapitalize="off">
+                              <div class="input-group-btn"><button type="submit" class="btn" name="commit">
+                              {{ 'general.newsletter_form.submit' | t }}
+                              </button></div>
+                          </div>
+                        {% endif %}
+                      {% endform %}
+                    </div>
+                {% endif %}
+              {% if section.settings.display_header_social %}
+                  <div class="header_social">
+                    {% include 'social-links' %}
+                  </div>
+              {% endif %}
+            </div>
+          </div>        
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+$(document).ready(function(){
+
+var articleblog = $(".testi");
+articleblog.owlCarousel({
+  itemsCustom : [
+  [0, 1],
+  [992, 1]
+],
+autoPlay: false,
+navigation : false,
+pagination:false
+});
+
+});
+  </script> 
+
+{% schema %}
+  {
+    "name": {
+      "en": "Testimonials",
+      "de": "Testimonials",
+      "fr": "Témoignages"
+    },
+ "settings": [
+   {
+  "type": "checkbox",
+  "id": "show_newsletter",
+  "label": "Show Newsletter"
+  }, 
+  {
+    "type": "text",
+    "id": "heading",
+    "label": "Heading",
+    "default": "sign up for newsletter"
+  },
+ {
+  "type": "checkbox",
+  "id": "display_header_social",
+  "label": "Display social links"
+  }
+  ],
+    "class": "index-section",
+    "max_blocks": 9,
+    "blocks": [
+      {
+        "type": "image",
+        "name": {
+          "en": "Image",
+          "de": "Foto",
+          "fr": "Image"
+        },
+        "type": "quote",
+        "name": {
+          "en": "Testimonial",
+          "de": "Testimonial",
+          "fr": "Témoignages"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "quote",
+            "label": {
+              "en": "Text",
+              "de": "Text",
+              "fr": "Texte"
+            },
+            "default": {
+              "en": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>",
+              "de": "<p>Kunden-Reviews und Testimonials, die Kundenzufriedenheit beweisen.</p>",
+              "fr": "<p>Ajoutez des avis et témoignages pour mettre en avant vos clients satisfaits.</p>"
+            }
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": {
+              "en": "Author",
+              "de": "Autor",
+              "fr": "Auteur"
+            },
+            "default": {
+              "en": "Author's name",
+              "de": "Name des Autors",
+              "fr": "Nom de l'auteur"
+            }
+          },
+          {
+            "type": "text",
+            "id": "developer",
+            "label": {
+              "en": "field",
+              "de": "field",
+              "fr": "field"
+            },
+            "default": {
+              "en": "developer",
+              "de": "developer",
+              "fr": "developer"
+            }
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Testimonials",
+          "de": "Testimonials",
+          "fr": "Témoignages"
+        },
+        "category": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "blocks": [
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

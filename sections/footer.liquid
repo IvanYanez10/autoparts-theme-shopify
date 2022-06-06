@@ -1,0 +1,328 @@
+<div data-section-id="{{ section.id }}"  class="footerbg">
+  <footer class="site-footer">
+
+    <div class="container">
+      <div class="row fspc">      
+            {% assign num_footer_columns = 0 %}     
+            {% if section.settings.footer_social_enable %}
+            {% assign num_footer_columns = num_footer_columns | plus: 1 %}
+            {% endif %}
+            {%- assign footer_linklist1 = section.settings.footer_menu_1 %}
+            {% if linklists[footer_linklist1].links.size > 0 %}
+            {% assign num_footer_columns = num_footer_columns | plus: 1 %}
+            {% endif %}
+
+            {%- assign footer_linklist2 = section.settings.footer_menu_2 %}
+            {% if linklists[footer_linklist2].links.size > 0 %}
+            {% assign num_footer_columns = num_footer_columns | plus: 1 %}
+            {% endif %}
+
+            {% case num_footer_columns %}
+            {% when 0 %}
+            {% when 1 %}
+            {% assign footer_num_column_width = 'text-left' %}
+            {% when 2 %}
+            {% assign footer_num_column_width = 'wide--one-half post-large--one-half large--one-half medium--one-half' %}
+            {% when 3 %}
+            {% assign footer_num_column_width = 'wide--one-third post-large--one-third large--one-third medium--one-third' %}     
+            {% endcase %} 
+  
+
+                {% if section.settings.show_contact %}
+            <div class="col-sm-3 col-xs-12 footcont fborder">
+              {% if section.settings.footer_menu_4_title != blank %}        
+              <h4 style="color:{{ section.settings.footer_title }};">{{ section.settings.footer_menu_4_title}}
+              <button type="button" class="toggle collapsed" data-toggle="collapse" data-target="#fcontact"></button></h4> 
+              {% endif %}     
+              <div id="fcontact" class="collapse footer-collapse">   
+              {% if section.settings.footer_address != blank or section.settings.footer_contact_no != blank %}        
+              <div class="address" style="color:{{ section.settings.footer_txt_clr }};">
+                <p style="color:{{ section.settings.footer_link }};">{% if section.settings.footer_address != blank %}
+                  {% include 'icon-location' %}{{ section.settings.footer_address }}
+                  {% endif %}  
+                </p>
+                <p style="color:{{ section.settings.footer_link }};">
+                  {% if section.settings.footer_contact_no != blank %}
+                  {% include 'icon-fphone' %}{{ section.settings.footer_contact_no }}
+                  {% endif %}
+                </p>
+              </div>
+              {% endif %}
+              {% if  section.settings.footer_contact_link != blank and section.settings.footer_contact_id != blank %}
+              <a style="color:{{ section.settings.footer_link }};" href="#" style="color:{{ section.settings.footer_link_clr }};">
+              {% include 'icon-mail' %}{{ section.settings.footer_contact_id }}</a>
+              {% endif %}
+			
+            <div>
+              <ul class="list-inline list-unstyled foot-payment">
+                <h4 style="color:{{ section.settings.footer_title }};">Payment</h4> 
+                <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+              </ul>
+            </div>
+                
+              
+              
+              </div>        
+            </div>
+            {% endif %}
+
+                {%- assign footer_linklist1 = section.settings.footer_menu_1 %}
+            {% if linklists[footer_linklist1].links.size > 0 %}
+            <div class="col-sm-3 col-xs-12 fborder">   
+              {% if section.settings.footer_menu_1_title != blank %}
+              <h4 style="color:{{ section.settings.footer_title }};">{{ section.settings.footer_menu_1_title }}
+              <button type="button" class="toggle collapsed" data-toggle="collapse" data-target="#fproduct"></button></h4>
+              {% endif %}
+              <ul id="fproduct" class="site-footer__links collapse footer-collapse">
+                {% for link in linklists[section.settings.footer_menu_1].links %}
+                <li><a style="color:{{ section.settings.footer_link }};" href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}  
+              </ul>          
+            </div>
+            {% endif %}  
+
+            {%- assign footer_linklist2 = section.settings.footer_menu_2 %}
+            {% if linklists[footer_linklist2].links.size > 0 %}
+            <div class="col-sm-3 col-xs-12 fborder">          
+              {% if section.settings.footer_menu_2_title != blank %}
+              <h4 style="color:{{ section.settings.footer_title }};">{{ section.settings.footer_menu_2_title }}
+              <button type="button" class="toggle collapsed" data-toggle="collapse" data-target="#fservice"></button></h4>
+              {% endif %}
+              <ul id="fservice" class="site-footer__links collapse footer-collapse">
+                {% for link in linklists[section.settings.footer_menu_2].links %}
+                <li><a style="color:{{ section.settings.footer_link }};" href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>         
+            </div>
+            {% endif %}
+
+
+            {% assign bottom_footer_columns = 0 %}     
+            {%- assign footer_linklist3 = section.settings.footer_menu_3 %}
+            {% if linklists[footer_linklist3].links.size > 0 %}
+            {% assign bottom_footer_columns = bottom_footer_columns | plus: 1 %}
+            {% endif %}
+            {% if section.settings.show_contact %}
+            {% assign bottom_footer_columns = bottom_footer_columns | plus: 1 %}
+            {% endif %}
+            {%- assign footer_linklist3 = section.settings.footer_menu_3 %}
+            {% if linklists[footer_linklist3].links.size > 0 %}
+            <div class="col-sm-3 col-xs-12 fborder">          
+              {% if section.settings.footer_menu_3_title != blank %}
+              <h4 style="color:{{ section.settings.footer_title }};">{{ section.settings.footer_menu_3_title }}
+              <button type="button" class="toggle collapsed" data-toggle="collapse" data-target="#faccount"></button></h4>
+              {% endif %}
+              <ul id="faccount" class="site-footer__links collapse footer-collapse">
+                {% for link in linklists[section.settings.footer_menu_3].links %}
+                <li><a style="color:{{ section.settings.footer_link }};" href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>         
+            </div>
+            {% endif %}
+
+            
+        </div>
+      </div>  
+        <div class="text-center container">
+          <div class="footblink">
+            <div class="row">
+            <div class="col-xs-12">
+              {% if section.settings.foottext != blank %}
+                  {{ section.settings.foottext }}
+              {% endif %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+          {% if section.settings.use_footer_bottom %}
+          <div class="footer-menu text-center">
+            <div class="container">
+              <div class="row">
+                <div class="copyr">
+            {% if section.settings.copyright != blank %}
+            <p style="color:{{ section.settings.copyright_text_clr }};" class="copyright-type__5">{{ section.settings.copyright }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name }}
+              {% if section.settings.use_powered_by %}
+              {{ powered_by_link }}
+              {% endif %}
+            </p>
+            {% endif %} 
+            </div>
+
+          </div>
+          </div>     
+          </div>
+          {% endif %}
+
+  </footer>
+
+  <style>
+    .footerbg .copyright-type__5 a:hover { color:{{ section.settings.copyright_link_hover_clr }} !important; }
+    .footerbg .copyright-type__5 a { color:{{ section.settings.copyright_link }};  }
+    
+  </style>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var article_item = $(".owl-fea.{{ section.id }}");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1],
+        [400, 2],
+        [768, 2],
+        [992, 2],
+        [1200, 3],
+        [1590, 5]
+      ],
+      navigation : false,
+      pagination:false
+    });
+
+    // Custom Navigation Events
+    $(".owl-feature .next").click(function(){
+      article_item.trigger('owl.next');
+    })
+    $(".owl-feature .prev").click(function(){
+      article_item.trigger('owl.prev');
+    }) 
+  });
+</script>
+
+{% schema %}
+  {
+  "name": "Footer",
+  "settings": [
+  {
+    "type": "paragraph",
+    "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+  },
+  {
+  "type": "color",
+  "id": "footer_title",
+  "label": "Footer Title",
+  "default":"#333"
+  },
+  {
+  "type": "color",
+  "id": "footer_link",
+  "label": "Footer Link",
+  "default":"#fff"
+  },
+  {
+  "type": "text",
+  "id": "footer_menu_1_title",
+  "label": "Heading",
+  "default": "Footer menu 1"
+  },
+   {
+  "type": "link_list",
+  "id": "footer_menu_1",
+  "label": "Footer link"
+  },
+
+  {
+  "type": "text",
+  "id": "footer_menu_2_title",
+  "label": "Heading",
+  "default": "Footer menu 2"
+  },
+  {
+  "type": "link_list",
+  "id": "footer_menu_2",
+  "label": "Footer link"
+  },
+  
+  {
+  "type": "text",
+  "id": "footer_menu_3_title",
+  "label": "Heading",
+  "default": "Footer menu 3"
+  },
+  {
+  "type": "link_list",
+  "id": "footer_menu_3",
+  "label": "Footer link"
+  },
+  
+
+  {
+  "type": "checkbox",
+  "id": "show_contact",
+  "label": "Show contact"
+  },
+  {
+  "type": "text",
+  "id": "footer_menu_4_title",
+  "label": "Heading",
+  "default": "Contact us"
+  },
+  {
+  "type": "textarea",
+  "id": "footer_address",
+  "label": "Address"      
+  },
+  {
+  "type": "text",
+  "id": "footer_contact_no",
+  "label": "Phone"      
+  },
+  {
+  "type": "text",
+  "id": "footer_contact_id",
+  "label": "E-Mail"      
+  },
+  {
+  "type": "text",
+  "id": "footer_contact_link",
+  "label": "Link"
+  },
+  {
+  "type": "checkbox",
+  "id": "use_footer_bottom",
+  "label": "Use footer bottom?"
+  },
+  {
+  "type": "textarea",
+  "id": "copyright",
+  "label": "Copy Right Text",
+  "default": "Copyright"
+  },
+  {
+  "type": "color",
+  "id": "copyright_text_clr",
+  "label": "Copy Right Text Color",
+  "default": "#000"
+  },
+  {
+  "type": "color",
+  "id": "copyright_link",
+  "label": "Copy Right Link",
+  "default": "#000"
+  },
+  {
+  "type": "color",
+  "id": "copyright_link_hover_clr",
+  "label": "Copy Right Link Hover",
+  "default": "#000"
+  },
+  {
+  "type": "checkbox",
+  "id": "use_powered_by",
+  "label": "Use Powered By"
+  },
+
+  {
+    "type": "richtext",
+    "id": "foottext",
+    "label": "Text",
+    "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+  }
+]
+}
+{% endschema %}

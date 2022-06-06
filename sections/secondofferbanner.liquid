@@ -1,0 +1,70 @@
+<div class="off-b1">
+<div data-section-id="{{ section.id }}" class="offerbnr container">
+  <div class="collectionItems">  
+      {% if section.blocks.size > 0 %}      
+      {% for block in section.blocks %}
+    {% case section.blocks.size %}
+        {% when 1 %}
+         {%- assign block_width = 'one-whole text-center' -%}
+        {% when 2 %}
+         {%- assign block_width = 'wide--one-half post-large--one-half large--one-half medium--one-half small-grid__item' -%}
+        {% when 3 %}
+         {%- assign block_width = 'wide--one-third post-large--one-third large--one-third medium--one-half small-grid__item' -%}
+         {% when 4 %}
+         {%- assign block_width = 'wide--one-quarter post-large--one-quarter large--one-quarter medium--one-half small-grid__item' -%}
+        {% endcase %}
+          <div class="beffect">
+            {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif%}
+            {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}" class="img-responsive center-block" />
+            {% else %}
+            {% comment %}{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}{% endcomment %}
+            <img src="https://dummyimage.com/1530x300/f8e0e0" class="img-responsive center-block" />
+            {% endif%}           
+            {% if block.settings.link != blank %}</a>{% endif%}  
+          </div>
+    
+    {% endfor %}
+    {% endif %}
+</div>
+</div>
+</div> 
+{% schema %}
+{
+"name": "Second Offer Banner",
+"class": "index-section",
+"max_blocks": 1,
+"settings": [
+],
+ "blocks": [
+    {
+      "type": "Image",
+      "name": "Second Offer Banner",
+      "settings": [ 
+ 		    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Size: 660x300"
+        },
+        {
+        "type": "url",
+        "id": "link",
+        "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Second Offer Banner",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,157 @@
+<div data-section-id="{{ section.id }}"  data-section-type="popular" class="popularpd">
+  <div class="allbgc container">
+    <div class="row">
+      <div class="col-lg-9 col-md-8 col-xs-12 popu-pro">
+       {%- assign collection = collections[section.settings.collection] -%}
+       {%- assign limit = section.settings.grid | times: section.settings.rows -%}  
+        {%- assign tp = section.settings.total_products  -%}                
+               {% if section.settings.title != blank %}
+          
+          <h1 class="heading"><span>{{ section.settings.title }}</span></h1>
+                {% endif %}
+                  
+        		 {% case section.settings.grid %}
+                  {% when '2' %}
+                  {%- assign grid_item_width = 'wide--one-half post-large--one-half large--one-half medium--one-half small-grid__item' -%}
+                  {% when '3' %}
+                  {%- assign grid_item_width = 'wide--one-third post-large--one-third large--one-third medium--one-third small-grid__item' -%}
+                  {% when '4' %}
+                  {%- assign grid_item_width = 'wide--one-quarter post-large--one-quarter large--one-quarter medium--one-half small-grid__item' -%}
+                  {% when '5' %}
+                  {%- assign grid_item_width = 'wide--one-fifth post-large--one-fifth large--one-third medium--one-third small-grid__item' -%}            
+                  {% endcase %}
+            {% assign grid_item_width = ' ' %}
+
+            <div class="row prodm">
+            <ul class="owl-popular {{ section.id }} owl-carousel owl-theme">
+              {% assign num_row = section.settings.num_topb | times: 1 %}
+              {% assign temp = 0 %}
+                  {% for product in collection.products %}
+                   {% if temp == 0 %}
+                    <ul class="twopro">
+                  {% endif %}
+                      
+                  {% include 'product-grid-item-cate', grid_item_width:grid_item_width %}
+                  {% assign temp = temp | plus: 1 %}
+
+                {% if temp == num_row %}
+                    </ul>
+
+                    {% assign temp = 0 %}
+                {% endif %} 
+                   {% else %}
+                     {% for i in (1..8) %}
+                        <div class="col-xs-12 item-row">
+                          <div class="product-container">
+                            <div class="imgblock col-xs-5">
+                            <a href="#">
+                                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                            </a>
+                            </div>
+                          <div class="wbproductdes text-left col-xs-7"> 
+                            <h5><a href="{{ product.url | within: collection }}" class="grid-link__title">your product's name</a></h5>
+                            <div class="grid-link__meta">
+                            <div class="product_price"> <span class="money" data-currency-usd="$320.00">$0.00</span> </div>
+                            <del class="grid-link__sale_price"><span class="money" data-currency-usd="$756.00">$0.00</span></del> </div>
+                          </div>
+                          </div>
+                        </div>
+                        {% endfor %} 
+                      {% endfor %}
+            </ul>
+            
+          </div>
+          <div class="owl-popularbtn slidebtn">
+              <a class="prev"><i class="fa fa-angle-left"></i></a><a class="next"><i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-12 popu-img hidden-sm hidden-xs">
+          <div class="beffect">
+            {% if section.settings.link != blank %}<a href="{{ section.settings.link }}">{% endif%}
+            {% if section.settings.image != blank %}
+            <img src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.title }}" class="img-responsive center-block" />
+            {% else %}
+            {% comment %}{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}{% endcomment %}
+            <img src="https://dummyimage.com/360x395/f8e0e0" class="img-responsive center-block" />
+            {% endif%}           
+            {% if section.settings.link != blank %}</a>{% endif%}  
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var article_item = $(".owl-popular.{{ section.id }}");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1],
+        [320, 1],
+        [600, 2],
+        [768, 2],
+        [992, 2],
+        [1200, 2], 
+        [1410, 3]
+      ],
+      navigation : false,
+      pagination:false
+    });
+
+    // Custom Navigation Events
+    $(".owl-popularbtn .next").click(function(){
+      article_item.trigger('owl.next');
+    })
+    $(".owl-popularbtn .prev").click(function(){
+      article_item.trigger('owl.prev');
+    }) 
+  });
+</script>
+  
+{% schema %}
+{
+  "name": "Popular",
+  "class": "index-section",
+  "settings": [ 
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Size: 660x300"
+    },
+    {
+    "type": "url",
+    "id": "link",
+    "label": "Link URL"
+    }, 
+	 {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Popular product"
+    },
+    {
+      "type": "text",
+      "id": "num_topb",
+      "label": "No. of row",
+      "default": "2"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    }  
+  ],
+  "presets": [
+    {
+     "name": "Popular",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
